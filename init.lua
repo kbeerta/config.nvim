@@ -97,7 +97,8 @@ require("lazy").setup({
         },
         config = function()
             local servers = {
-                "ccls",
+                "nixd",
+                "lua_ls",
                 "rust_analyzer",
             }
 
