@@ -97,6 +97,7 @@ require("lazy").setup({
         },
         config = function()
             local servers = {
+                "zls",
                 "nixd",
                 "lua_ls",
                 "rust_analyzer",
@@ -148,7 +149,7 @@ require("lazy").setup({
 
             for _, server in ipairs(servers) do
                 require("lspconfig")[server].setup({
-                    capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities()), 
+                    capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities()),
                 })
             end
         end},
