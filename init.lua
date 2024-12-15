@@ -100,6 +100,7 @@ require("lazy").setup({
                 "zls",
                 "ccls",
                 "nixd",
+                "pylsp",
                 "lua_ls",
                 "rust_analyzer",
             }
