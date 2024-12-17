@@ -215,4 +215,6 @@ require("lazy").setup({
         main = "ibl",
         opts = {},
     }
+}, {
+    lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",     -- Config folder is readonly because of home manager
 })
