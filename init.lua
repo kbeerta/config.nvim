@@ -91,6 +91,20 @@ require("lazy").setup({
         },
     },
     {
+        "akinsho/bufferline.nvim",
+        opts = {
+            show_buffer_icons = false,
+            show_buffer_close_icons = false,
+        },
+        config = function(_, opts)
+            require("bufferline").setup({
+                options = opts,
+                highlights = require("catppuccin.groups.integrations.bufferline").get(),
+            })
+        end
+
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
@@ -207,7 +221,9 @@ require("lazy").setup({
             highlight = {
                 enable = true,
             },
-            indent = { enable = true },
+            indent = {
+                enable = true,
+            },
         },
     },
     {
@@ -216,5 +232,5 @@ require("lazy").setup({
         opts = {},
     }
 }, {
-    lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",     -- Config folder is readonly because of home manager
+    lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json", -- Config folder is readonly because of home manager
 })
