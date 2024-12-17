@@ -68,7 +68,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { 
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
@@ -151,62 +151,68 @@ require("lazy").setup({
 
             for _, server in ipairs(servers) do
                 require("lspconfig")[server].setup({
-                    capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities()),
+                    capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(),
+                        require("cmp_nvim_lsp").default_capabilities()),
                 })
             end
-        end},
-        {
-            "hrsh7th/nvim-cmp",
-            event = "InsertEnter",
-            dependencies = {
-                "hrsh7th/cmp-path",
-                "hrsh7th/cmp-nvim-lsp",
+        end
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
+        dependencies = {
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lsp",
 
-                "saadparwaiz1/cmp_luasnip",
-                {
-                    "L3MON4D3/LuaSnip",
-                    dependencies = {},
-                },
+            "saadparwaiz1/cmp_luasnip",
+            {
+                "L3MON4D3/LuaSnip",
+                dependencies = {},
             },
-            config = function()
-
-                local cmp = require("cmp")
-                local luasnip = require("luasnip")
-
-                luasnip.config.setup({})
-
-                cmp.setup {
-                    snippet = {
-                        expand = function(args)
-                            luasnip.lsp_expand(args.body)
-                        end,
-                    },
-                    completion = { completeopt = "menu,menuone,noinsert" },
-                    mapping = cmp.mapping.preset.insert {
-                        ["<C-n>"] = cmp.mapping.select_next_item(),
-                        ["<C-p>"] = cmp.mapping.select_prev_item(),
-
-                        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    },
-                    sources = {
-                        { name = "path" },
-                        { name = "luasnip" },
-                        { name = "nvim_lsp" },
-                    },
-                }
-            end,
         },
-        {
-            "nvim-treesitter/nvim-treesitter",
-            build = ":TSUpdate",
-            main = "nvim-treesitter.configs",
-            opts = {
-                ensure_installed = { "lua" },
-                auto_install = true,
-                highlight = {
-                    enable = true,
+        config = function()
+            local cmp = require("cmp")
+            local luasnip = require("luasnip")
+
+            luasnip.config.setup({})
+
+            cmp.setup {
+                snippet = {
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end,
                 },
-                indent = { enable = true },
+                completion = { completeopt = "menu,menuone,noinsert" },
+                mapping = cmp.mapping.preset.insert {
+                    ["<C-n>"] = cmp.mapping.select_next_item(),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(),
+
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                },
+                sources = {
+                    { name = "path" },
+                    { name = "luasnip" },
+                    { name = "nvim_lsp" },
+                },
+            }
+        end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        main = "nvim-treesitter.configs",
+        opts = {
+            ensure_installed = { "lua" },
+            auto_install = true,
+            highlight = {
+                enable = true,
             },
-        }
-    })
+            indent = { enable = true },
+        },
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
+    }
+})
