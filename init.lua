@@ -144,6 +144,12 @@ require("lazy").setup({
               end
             })
           end
+          vim.api.nvim_create_autocmd("LspDetach", {
+            buffer = args.buf,
+            callback = function()
+              vim.api.nvim_clear_autocmds({ buffer = args.buf })
+            end
+          })
         end
       })
 
