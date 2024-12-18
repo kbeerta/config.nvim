@@ -51,6 +51,9 @@ vim.keymap.set("n", "<S-l>", "<cmd>bnext<CR>")
 
 vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 
+vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua grep<CR>")
+vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>")
+
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
@@ -91,34 +94,54 @@ require("lazy").setup({
         },
     },
     {
-        "akinsho/bufferline.nvim",
-        opts = {
-            show_buffer_icons = false,
-            show_buffer_close_icons = false,
+        "ibhagwan/fzf-lua",
+        opts = {},
+    },
+    {
+        "saghen/blink.cmp",
+        lazy = false, -- lazy loading handled internally
+        version = "v0.*",
+        dependencies = {
+            { "L3MON4D3/LuaSnip", version = "v2.*" },
         },
-        config = function(_, opts)
-            require("bufferline").setup({
-                options = opts,
-                highlights = require("catppuccin.groups.integrations.bufferline").get(),
-            })
-        end
-
+        opts = {
+            keymap = { preset = "enter" },
+            snippets = {
+                expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+                active = function(filter)
+                    if filter and filter.direction then
+                        return require("luasnip").jumpable(filter.direction)
+                    end
+                    return require("luasnip").in_snippet()
+                end,
+                jump = function(direction) require("luasnip").jump(direction) end,
+            },
+            appearance = {
+                nerd_font_variant = "mono",
+                use_nvim_cmp_as_default = true
+            },
+            sources = {
+                default = { "lsp", "path", "luasnip", "buffer" },
+            },
+        },
+        opts_extend = { "sources.default" }
     },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
+            "saghen/blink.cmp",
         },
-        config = function()
-            local servers = {
-                "zls",
-                "ccls",
-                "nixd",
-                "pylsp",
-                "lua_ls",
-                "rust_analyzer",
-            }
-
+        opts = {
+            servers = {
+                zls = {},
+                ccls = {},
+                nixd = {},
+                pylsp = {},
+                lua_ls = {},
+                rust_analyzer = {},
+            },
+        },
+        config = function(_, opts)
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("KickstartLspAttach", { clear = true }),
                 callback = function(event)
@@ -163,53 +186,11 @@ require("lazy").setup({
                 end
             })
 
-            for _, server in ipairs(servers) do
-                require("lspconfig")[server].setup({
-                    capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(),
-                        require("cmp_nvim_lsp").default_capabilities()),
-                })
+            for server, config in pairs(opts.servers) do
+                config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+                require("lspconfig")[server].setup(config)
             end
         end
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
-        dependencies = {
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-nvim-lsp",
-
-            "saadparwaiz1/cmp_luasnip",
-            {
-                "L3MON4D3/LuaSnip",
-                dependencies = {},
-            },
-        },
-        config = function()
-            local cmp = require("cmp")
-            local luasnip = require("luasnip")
-
-            luasnip.config.setup({})
-
-            cmp.setup {
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
-                },
-                completion = { completeopt = "menu,menuone,noinsert" },
-                mapping = cmp.mapping.preset.insert {
-                    ["<C-n>"] = cmp.mapping.select_next_item(),
-                    ["<C-p>"] = cmp.mapping.select_prev_item(),
-
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                },
-                sources = {
-                    { name = "path" },
-                    { name = "luasnip" },
-                    { name = "nvim_lsp" },
-                },
-            }
-        end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -230,6 +211,20 @@ require("lazy").setup({
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {},
+    },
+    {
+        "akinsho/bufferline.nvim",
+        opts = {
+            show_buffer_icons = false,
+            show_buffer_close_icons = false,
+        },
+        config = function(_, opts)
+            require("bufferline").setup({
+                options = opts,
+                highlights = require("catppuccin.groups.integrations.bufferline").get(),
+            })
+        end
+
     }
 }, {
     lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json", -- Config folder is readonly because of home manager
