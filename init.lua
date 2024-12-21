@@ -129,6 +129,10 @@ require("lazy").setup({
             })
           end
 
+          if client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) then
+            vim.api.nvim_set_keymap(args.buf, "n", vim.lsp.buf.rename, { buffer = args.buf });
+          end
+
           if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = args.buf,
@@ -144,6 +148,7 @@ require("lazy").setup({
               end
             })
           end
+
           vim.api.nvim_create_autocmd("LspDetach", {
             buffer = args.buf,
             callback = function()
