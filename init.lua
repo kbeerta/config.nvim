@@ -130,7 +130,7 @@ require("lazy").setup({
           end
 
           if client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) then
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = args.buf })
+            vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = args.buf })
           end
 
           if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
