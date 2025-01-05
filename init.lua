@@ -105,14 +105,14 @@ require("lazy").setup({
         zls = {},
         ccls = {},
         nixd = {},
-        pylsp = {
-          plugins = {
-            ruff = {
-              enabled = true,
-              formatEnabled = true,
-              preview = false,
+        ruff = {
+          init_options = {
+            settings = {
+              format = {
+                quote_style = "single"
+              },
             },
-          },
+          }
         },
         lua_ls = {},
         rust_analyzer = {},
