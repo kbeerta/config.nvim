@@ -1,30 +1,4 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-
-vim.opt.relativenumber = true
-vim.opt.clipboard = "unnamedplus"
-
-vim.opt.undofile = true
-vim.opt.swapfile = false
-
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-
-vim.opt.scrolloff = 6
-
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
-vim.keymap.set("n", "<S-h>", "<cmd>bprev<CR>")
-vim.keymap.set("n", "<S-l>", "<cmd>bnext<CR>")
-
-vim.keymap.set("n", "-", "<cmd>Oil<CR>")
-
-vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua grep<CR>")
-vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>")
+require("core")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
