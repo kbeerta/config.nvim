@@ -1,6 +1,6 @@
 
 local map = function(mode, lhs, rhs, opts)
-  local opts = vim.tbl_extend("force", opts, { noremap = true, silent = true })
+  local opts = vim.tbl_extend("force", opts or {}, { noremap = true, silent = true })
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
