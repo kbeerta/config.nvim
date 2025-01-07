@@ -11,4 +11,5 @@ map("n", "-", "<cmd>Oil<CR>")
 
 map("n", "<leader>fg", "<cmd>FzfLua grep<CR>")
 map("n", "<leader>ff", "<cmd>FzfLua files<CR>")
+map("n", "<leader>fb", "<cmd>FzfLua buffers<CR>")
 

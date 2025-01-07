@@ -94,7 +94,7 @@ require("lazy").setup({
     },
     config = function(_, opts)
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("KickstartLspAttach", { clear = true }),
+        group = vim.api.nvim_create_augroup("LspAttachCallback", { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
 
@@ -113,6 +113,14 @@ require("lazy").setup({
 
           if client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) then
             vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = args.buf })
+          end
+
+          if client.supports_method(vim.lsp.protocol.Methods.textDocument_declaration) then
+            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = args.buf })
+          end
+
+          if client.supports_method(vim.lsp.protocol.Methods.textDocument_definition) then
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = args.buf })
           end
 
           if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
