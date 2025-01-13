@@ -86,6 +86,9 @@ require("lazy").setup({
               preview = false,
               formatEnabled = true,
             },
+            rope_autoimport = {
+              enabled = true,
+            }
           },
         },
         lua_ls = {},
