@@ -92,6 +92,7 @@ require("lazy").setup({
           },
         },
         lua_ls = {},
+        phpactor = {},
         rust_analyzer = {},
       },
     },
