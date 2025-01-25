@@ -12,7 +12,7 @@ return {
             },
             auto_install = true,
         },
-    }
+    },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
