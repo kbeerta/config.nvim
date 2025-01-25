@@ -6,7 +6,7 @@ return {
         opts = {
             flavour = "mocha",
             no_italic = true,
-            transparent_background = true,
+            transparent_background = true
         },
         init = function()
             vim.cmd.colorscheme("catppuccin")
@@ -15,6 +15,6 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
-        opts = {},
+        opts = {}
     }
 }

@@ -5,13 +5,13 @@ return {
         main = "nvim-treesitter.configs",
         opts = {
             highlight = {
-                enable = true,
+                enable = true
             },
             indent = {
-                enable = true,
+                enable = true
             },
-            auto_install = true,
-        },
+            auto_install = true
+        }
     },
     {
         "neovim/nvim-lspconfig",
@@ -30,11 +30,11 @@ return {
                         use_nvim_cmp_as_default = true
                     },
                     sources = {
-                        default = { "lsp", "path", "snippets", "buffer" },
-                    },
+                        default = { "lsp", "path", "snippets", "buffer" }
+                    }
                 },
                 opts_extend = { "sources.default" }
-            },
+            }
         },
         opts = {
             servers = {
@@ -55,8 +55,8 @@ return {
                 },
                 lua_ls = {},
                 phpactor = {},
-                rust_analyzer = {},
-            },
+                rust_analyzer = {}
+            }
         },
         config = function(_, opts)
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -119,5 +119,5 @@ return {
                 require("lspconfig")[server].setup(config)
             end
         end
-    },
+    }
 }
