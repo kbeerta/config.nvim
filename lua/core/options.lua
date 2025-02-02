@@ -24,9 +24,15 @@ opt.relativenumber = true
 opt.cursorline = true
 opt.cursorlineopt = "number"
 
+opt.signcolumn = "no"
+
 opt.scrolloff = 10
 
 opt.hlsearch = false
 
 opt.undofile = true
 opt.swapfile = false
+
+opt.updatetime = 250
+
+vim.diagnostic.config({ virtual_text = true })
