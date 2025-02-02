@@ -1,59 +1,15 @@
+local keymaps = require("core.keymaps")
+
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        main = "nvim-treesitter.configs",
-        opts = {
-            highlight = {
-                enable = true
-            },
-            indent = {
-                enable = true
-            },
-            auto_install = true
-        }
-    },
-    {
         "neovim/nvim-lspconfig",
-        dependencies = {
-            {
-                "saghen/blink.cmp",
-                version = "v0.*",
-                lazy = false,
-                dependencies = {
-                    "rafamadriz/friendly-snippets",
-                },
-                opts = {
-                    keymap = { preset = "default" },
-                    appearance = {
-                        nerd_font_variant = "mono",
-                        use_nvim_cmp_as_default = true
-                    },
-                    sources = {
-                        default = { "lsp", "path", "snippets", "buffer" }
-                    }
-                },
-                opts_extend = { "sources.default" }
-            }
-        },
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "ibhagwan/fzf-lua", "saghen/blink.cmp" },
         opts = {
             servers = {
                 zls = {},
                 ccls = {},
                 nixd = {},
-                pylsp = {
-                    plugins = {
-                        ruff = {
-                            enabled = true,
-                            preview = false,
-                            formatEnabled = true,
-                        },
-                        rope_autoimport = {
-                            enabled = true,
-                        }
-                    },
-                },
-                lua_ls = {},
                 phpactor = {},
                 rust_analyzer = {}
             }
@@ -68,7 +24,7 @@ return {
                         return
                     end
 
-                    if client.supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+                    if client:supports_method("textDocument/formatting") then
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = args.buf,
                             callback = function()
@@ -77,19 +33,31 @@ return {
                         })
                     end
 
-                    if client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) then
-                        vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = args.buf })
+                    if client:supports_method("textDocument/hover") then
+                        keymaps.map("n", "K", vim.lsp.buf.hover, { buffer = args.buf })
+                    end
+                    
+                    if client:supports_method("textDocument/declaration") then
+                        keymaps.map("n", "gd", vim.lsp.buf.declaration, { buffer = args.buf })
                     end
 
-                    if client.supports_method(vim.lsp.protocol.Methods.textDocument_declaration) then
-                        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = args.buf })
+
+                    if client:supports_method("textDocument/rename") then
+                        keymaps.map("n", "grn", vim.lsp.buf.rename, { buffer = args.buf })
                     end
 
-                    if client.supports_method(vim.lsp.protocol.Methods.textDocument_definition) then
-                        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = args.buf })
+                    if client:supports_method("textDocument/codeAction") then
+                        keymaps.map("n", "gra", vim.lsp.buf.code_action, { buffer = args.buf })
+                    end
+                    if client:supports_method("textDocument/references") then
+                        keymaps.map("n", "grr", "<cmd>FzfLua lsp_references<CR>", { buffer = args.buf })
                     end
 
-                    if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                    if client:supports_method("textDocument/implementation") then
+                        keymaps.map("n", "gri", "<cmd>FzfLua lsp_implementations<CR>", { buffer = args.buf })
+                    end
+
+                    if client:supports_method("textDocument/highlight") then
                         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                             buffer = args.buf,
                             callback = function()

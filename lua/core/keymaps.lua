@@ -1,8 +1,12 @@
 
-local map = function(mode, lhs, rhs, opts)
+local M = {}
+
+M.map = function(mode, lhs, rhs, opts)
     local opts = vim.tbl_extend("force", opts or {}, { noremap = true, silent = true })
-    vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-map("n", "<S-h>", "<cmd>bprev<CR>")
-map("n", "<S-l>", "<cmd>bnext<CR>")
+M.map("n", "<S-h>", "<C-o>")
+M.map("n", "<S-l>", "<C-i>")
+
+return M

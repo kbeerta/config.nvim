@@ -12,9 +12,4 @@ return {
             vim.cmd.colorscheme("catppuccin")
         end
     },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = {}
-    }
 }
