@@ -41,7 +41,6 @@ return {
                         keymaps.map("n", "gd", vim.lsp.buf.declaration, { buffer = args.buf })
                     end
 
-
                     if client:supports_method("textDocument/rename") then
                         keymaps.map("n", "grn", vim.lsp.buf.rename, { buffer = args.buf })
                     end
@@ -55,6 +54,10 @@ return {
 
                     if client:supports_method("textDocument/implementation") then
                         keymaps.map("n", "gri", "<cmd>FzfLua lsp_implementations<CR>", { buffer = args.buf })
+                    end
+
+                    if client:supports_method("textDocument/documentSymbol") then
+                        keymaps.map("n", "gO", "<cmd>FzfLua lsp_document_symbols<CR>", { buffer = args.buf })
                     end
 
                     if client:supports_method("textDocument/highlight") then
