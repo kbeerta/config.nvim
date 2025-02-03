@@ -37,8 +37,8 @@ return {
                         keymaps.map("n", "K", vim.lsp.buf.hover, { buffer = args.buf })
                     end
                     
-                    if client:supports_method("textDocument/declaration") then
-                        keymaps.map("n", "gd", vim.lsp.buf.declaration, { buffer = args.buf })
+                    if client:supports_method("textDocument/definition") then
+                        keymaps.map("n", "gd", vim.lsp.buf.definition, { buffer = args.buf })
                     end
 
                     if client:supports_method("textDocument/rename") then
