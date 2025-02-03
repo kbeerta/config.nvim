@@ -46,7 +46,7 @@ return {
                     end
 
                     if client:supports_method("textDocument/codeAction") then
-                        keymaps.map("n", "gra", vim.lsp.buf.code_action, { buffer = args.buf })
+                        keymaps.map("n", "gra", "<cmd>FzfLua lsp_code_actions", { buffer = args.buf })
                     end
 
                     if client:supports_method("textDocument/references") then
