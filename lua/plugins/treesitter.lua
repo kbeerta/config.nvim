@@ -9,4 +9,10 @@ return {
             highlight = { enable = true },
         }
     },
+    {
+        "nvim-treesitter/nvim-treesitter-context"
+        opts = {
+            enable = true,
+        }
+    }
 }
