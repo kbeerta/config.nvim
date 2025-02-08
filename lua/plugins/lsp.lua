@@ -8,6 +8,7 @@ return {
         opts = {
             servers = {
                 zls = {},
+                ols = {},
                 ccls = {},
                 nixd = {},
                 phpactor = {},
