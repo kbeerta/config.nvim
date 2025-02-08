@@ -62,22 +62,6 @@ return {
                         keymaps.map("n", "gO", "<cmd>FzfLua lsp_document_symbols<CR>", { buffer = args.buf })
                     end
 
-                    if client:supports_method("textDocument/documentHighlight") then
-                        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                            buffer = args.buf,
-                            callback = function()
-                                vim.lsp.buf.document_highlight()
-                            end
-                        })
-
-                        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                            buffer = args.buf,
-                            callback = function()
-                                vim.lsp.buf.clear_references()
-                            end
-                        })
-                    end
-
                     vim.api.nvim_create_autocmd("LspDetach", {
                         buffer = args.buf,
                         callback = function()
