@@ -62,7 +62,7 @@ return {
                         keymaps.map("n", "gO", "<cmd>FzfLua lsp_document_symbols<CR>", { buffer = args.buf })
                     end
 
-                    if client:supports_method("textDocument/highlight") then
+                    if client:supports_method("textDocument/documentHighlight") then
                         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                             buffer = args.buf,
                             callback = function()
