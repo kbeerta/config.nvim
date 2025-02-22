@@ -11,6 +11,7 @@ return {
                 ols = {},
                 ccls = {},
                 nixd = {},
+                pylsp = {},
                 phpactor = {},
                 rust_analyzer = {}
             }
