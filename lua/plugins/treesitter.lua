@@ -9,11 +9,5 @@ return {
             indent = { enable = true },
             highlight = { enable = true },
         }
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        opts = {
-            enable = true,
-        }
     }
 }

@@ -38,37 +38,9 @@ return {
                     if client:supports_method("textDocument/hover") then
                         keymaps.map("n", "K", vim.lsp.buf.hover, { buffer = args.buf })
                     end
-                    
-                    if client:supports_method("textDocument/definition") then
-                        keymaps.map("n", "gd", vim.lsp.buf.definition, { buffer = args.buf })
-                    end
-
                     if client:supports_method("textDocument/rename") then
                         keymaps.map("n", "grn", vim.lsp.buf.rename, { buffer = args.buf })
                     end
-
-                    if client:supports_method("textDocument/codeAction") then
-                        keymaps.map("n", "gra", "<cmd>FzfLua lsp_code_actions", { buffer = args.buf })
-                    end
-
-                    if client:supports_method("textDocument/references") then
-                        keymaps.map("n", "grr", "<cmd>FzfLua lsp_references<CR>", { buffer = args.buf })
-                    end
-
-                    if client:supports_method("textDocument/implementation") then
-                        keymaps.map("n", "gri", "<cmd>FzfLua lsp_implementations<CR>", { buffer = args.buf })
-                    end
-
-                    if client:supports_method("textDocument/documentSymbol") then
-                        keymaps.map("n", "gO", "<cmd>FzfLua lsp_document_symbols<CR>", { buffer = args.buf })
-                    end
-
-                    vim.api.nvim_create_autocmd("LspDetach", {
-                        buffer = args.buf,
-                        callback = function()
-                            vim.api.nvim_clear_autocmds({ buffer = args.buf })
-                        end
-                    })
                 end
             })
 
