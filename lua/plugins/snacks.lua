@@ -2,11 +2,6 @@ return {
     "folke/snacks.nvim",
     lazy = false,
     opts = {
-        dim = {
-            animate = {
-                enabled = false,
-            },
-        },
         image = {},
         indent = {
             only_scope = true,
