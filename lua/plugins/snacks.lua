@@ -25,11 +25,5 @@ return {
 
         { "<leader>ss", function() Snacks.picker.lsp_symbols() end },
         { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end },
-    },
-    config = function(_, opts)
-        require("snacks").setup(opts)
-
-        Snacks.dim.enable(opts.dim);
-        Snacks.indent.enable(opts.indent);
-    end
+    }
 }
