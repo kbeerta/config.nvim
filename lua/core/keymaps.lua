@@ -6,7 +6,7 @@ M.map = function(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-M.map("n", "<S-h>", "<C-o>")
-M.map("n", "<S-l>", "<C-i>")
+M.map("n", "<S-h>", "<cmd>bprev<CR>")
+M.map("n", "<S-l>", "<cmd>bnext<CR>")
 
 return M
