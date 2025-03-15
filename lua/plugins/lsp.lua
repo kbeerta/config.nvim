@@ -13,6 +13,7 @@ return {
                 nixd = {},
                 pylsp = {},
                 phpactor = {},
+                gdscript = {},
                 rust_analyzer = {}
             }
         },
