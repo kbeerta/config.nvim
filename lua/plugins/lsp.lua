@@ -4,7 +4,6 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "ibhagwan/fzf-lua", "saghen/blink.cmp" },
         opts = {
             servers = {
                 zls = {},
@@ -21,11 +20,19 @@ return {
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("LspAttachCallback", { clear = true }),
                 callback = function(args)
+
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
                     if not client then
                         return
                     end
+
+                    vim.lsp.completion.enable(true, client.id, args.buf, {
+                        autotrigger = true,
+                        convert = function(item)
+                            return { abbr = item.label:gsub('%b()', '') }
+                        end,
+                    })
 
                     if client:supports_method("textDocument/formatting") then
                         vim.api.nvim_create_autocmd("BufWritePre", {
