@@ -1,16 +1,26 @@
 
 vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(event)
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
 
         if client:supports_method('textDocument/completion') then
-            vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 
             vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
                 buffer = event.buf,
                 callback = function()
                     vim.lsp.completion.get()
                 end
+            })
+        end
+
+        if not client:supports_method('textDocument/willSaveWaitUntil')
+            and client:supports_method('textDocument/formatting') then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = args.buf,
+                callback = function()
+                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+                end,
             })
         end
 
