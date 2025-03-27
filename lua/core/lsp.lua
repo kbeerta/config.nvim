@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 
             vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
-                buffer = args.buf,
+                buffer = event.buf,
                 callback = function()
                     vim.lsp.completion.get()
                 end
