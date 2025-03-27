@@ -17,6 +17,8 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 
+opt.completeopt = "menuone,noselect,popup,fuzzy"
+
 opt.number = true
 opt.relativenumber = true
 
