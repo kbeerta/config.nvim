@@ -1,6 +1,6 @@
 
-g.mapleader = " "
-g.maplocalleader = "\\"
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 require("core.keymaps")
 require("core.lsp")
