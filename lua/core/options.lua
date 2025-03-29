@@ -2,7 +2,6 @@ local opt = vim.opt
 
 opt.fixeol = false
 opt.clipboard = "unnamedplus"
-opt.confirm = true
 
 opt.scrolloff = 2
 opt.sidescrolloff = 2
