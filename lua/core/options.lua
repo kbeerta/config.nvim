@@ -10,7 +10,7 @@ opt.smoothscroll = true
 opt.completeopt = "menu,menuone,popup,noselect"
 
 opt.undofile = true
-opt.swapfile = true
+opt.swapfile = false
 
 opt.number = true
 opt.relativenumber = true
