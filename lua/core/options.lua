@@ -1,35 +1,29 @@
 local opt = vim.opt
 
-opt.mouse = "a"
+opt.fixeol = false
 opt.clipboard = "unnamedplus"
+opt.confirm = true
 
-opt.splitright = true
-opt.termguicolors = true
+opt.scrolloff = 2
+opt.sidescrolloff = 2
+opt.smoothscroll = true
 
-opt.laststatus = 3
-opt.showmode = false
+opt.completeopt = "menu,menuone,popup,noselect"
 
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-
-opt.completeopt = "menuone,noselect,popup,fuzzy"
+opt.undofile = true
+opt.swapfile = true
 
 opt.number = true
 opt.relativenumber = true
 
+opt.updatetime = 250
+opt.showmode = false
+
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.smartindent = true
+
 opt.cursorline = true
 opt.cursorlineopt = "number"
-
-opt.signcolumn = "no"
-
-opt.scrolloff = 10
-
-opt.hlsearch = false
-
-opt.undofile = true
-opt.swapfile = false
-
-opt.updatetime = 250
-
-vim.diagnostic.config({ virtual_text = true })
